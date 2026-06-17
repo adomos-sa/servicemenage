@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ServiceMénage – Ménage à domicile | Adomos</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:   #0A1628;
+      --linen:  #F7F4EF;
+      --mint:   #3EC9A7;
+      --warm:   #E8E2D9;
+      --coral:  #FF6B4A;
+      --muted:  #6B7280;
+      --white:  #FFFFFF;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--linen);
+      color: var(--navy);
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 18px 48px;
+      background: rgba(10, 22, 40, 0.92);
+      backdrop-filter: blur(8px);
+    }
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25rem; font-weight: 700;
+      color: var(--white); letter-spacing: 0.02em;
+    }
+    .nav-logo span { color: var(--mint); }
+    .nav-links { display: flex; gap: 32px; }
+    .nav-links a {
+      color: rgba(255,255,255,0.75); text-decoration: none;
+      font-size: 0.85rem; font-weight: 500; letter-spacing: 0.04em;
+      text-transform: uppercase; transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--mint); }
+    .nav-cta {
+      background: var(--coral); color: var(--white);
+      border: none; padding: 10px 24px; border-radius: 4px;
+      font-size: 0.85rem; font-weight: 600; cursor: pointer;
+      letter-spacing: 0.03em; transition: opacity 0.2s;
+    }
+    .nav-cta:hover { opacity: 0.88; }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      background: var(--navy);
+      display: grid;
+      grid-template-columns: 1fr 440px;
+      gap: 0;
+      align-items: center;
+      padding: 100px 48px 60px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Signature: animated clean-sweep geometric */
+    .hero-bg-art {
+      position: absolute; inset: 0; pointer-events: none;
+      overflow: hidden;
+    }
+    .sweep-line {
+      position: absolute;
+      width: 2px; height: 60%;
+      background: linear-gradient(to bottom, transparent, var(--mint), transparent);
+      opacity: 0.12;
+      animation: sweepMove 8s ease-in-out infinite;
+    }
+    .sweep-line:nth-child(1) { left: 15%; animation-delay: 0s; }
+    .sweep-line:nth-child(2) { left: 35%; animation-delay: 1.5s; height: 80%; }
+    .sweep-line:nth-child(3) { left: 55%; animation-delay: 3s; }
+    .sweep-line:nth-child(4) { left: 75%; animation-delay: 4.5s; height: 70%; }
+    .sweep-line:nth-child(5) { left: 90%; animation-delay: 2s; height: 50%; }
+    @keyframes sweepMove {
+      0%   { transform: translateY(-10%); opacity: 0.04; }
+      50%  { opacity: 0.14; }
+      100% { transform: translateY(110%); opacity: 0.04; }
+    }
+
+    /* Before/after reveal — the signature element */
+    .before-after {
+      position: absolute;
+      bottom: 0; right: 440px;
+      width: 320px; height: 200px;
+      border-radius: 12px 12px 0 0;
+      overflow: hidden;
+      opacity: 0.18;
+    }
+    .ba-dirty {
+      position: absolute; inset: 0;
+      background: repeating-linear-gradient(
+        45deg,
+        #2a3a55 0px, #2a3a55 8px,
+        #1e2d44 8px, #1e2d44 20px
+      );
+    }
+    .ba-clean {
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, #1a3a4a 0%, #0d2a3a 100%);
+      clip-path: polygon(60% 0, 100% 0, 100% 100%, 30% 100%);
+      animation: revealClean 4s ease-in-out infinite alternate;
+    }
+    @keyframes revealClean {
+      0%   { clip-path: polygon(40% 0, 100% 0, 100% 100%, 10% 100%); }
+      100% { clip-path: polygon(75% 0, 100% 0, 100% 100%, 55% 100%); }
+    }
+
+    /* Hero content */
+    .hero-content { position: relative; z-index: 2; padding-right: 60px; }
+
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(62, 201, 167, 0.12);
+      border: 1px solid rgba(62, 201, 167, 0.3);
+      color: var(--mint);
+      font-size: 0.78rem; font-weight: 600; letter-spacing: 0.1em;
+      text-transform: uppercase; padding: 6px 14px; border-radius: 100px;
+      margin-bottom: 28px;
+    }
+    .hero-eyebrow::before {
+      content: ''; width: 6px; height: 6px; border-radius: 50%;
+      background: var(--mint); animation: pulse 2s ease infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(1.4); }
+    }
+
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.4rem, 4.5vw, 3.8rem);
+      font-weight: 700; line-height: 1.12;
+      color: var(--white); margin-bottom: 20px;
+    }
+    .hero-title em {
+      font-style: normal; color: var(--mint);
+      border-bottom: 2px solid var(--mint);
+    }
+
+    .hero-sub {
+      font-size: 1.05rem; font-weight: 300; line-height: 1.7;
+      color: rgba(255,255,255,0.65); max-width: 480px;
+      margin-bottom: 40px;
+    }
+
+    .hero-stats {
+      display: flex; gap: 40px; margin-bottom: 48px;
+    }
+    .stat-item {}
+    .stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem; font-weight: 700; color: var(--white);
+      line-height: 1;
+    }
+    .stat-label {
+      font-size: 0.75rem; color: rgba(255,255,255,0.45);
+      letter-spacing: 0.06em; text-transform: uppercase; margin-top: 4px;
+    }
+
+    .hero-trust {
+      display: flex; align-items: center; gap: 12px;
+      font-size: 0.82rem; color: rgba(255,255,255,0.45);
+    }
+    .stars { color: #FFD166; letter-spacing: 2px; font-size: 0.9rem; }
+
+    /* ── LEAD FORM CARD ── */
+    .form-card {
+      position: relative; z-index: 2;
+      background: var(--white);
+      border-radius: 16px;
+      padding: 36px 32px;
+      box-shadow: 0 24px 80px rgba(0,0,0,0.35);
+    }
+    .form-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem; font-weight: 600;
+      color: var(--navy); margin-bottom: 6px;
+    }
+    .form-sub {
+      font-size: 0.82rem; color: var(--muted); margin-bottom: 24px;
+    }
+    .form-group { margin-bottom: 14px; }
+    .form-group label {
+      display: block; font-size: 0.75rem; font-weight: 600;
+      color: var(--navy); text-transform: uppercase;
+      letter-spacing: 0.06em; margin-bottom: 6px;
+    }
+    .form-group input,
+    .form-group select {
+      width: 100%; padding: 11px 14px;
+      border: 1.5px solid var(--warm); border-radius: 6px;
+      font-family: 'Inter', sans-serif; font-size: 0.9rem;
+      color: var(--navy); background: var(--linen);
+      outline: none; transition: border-color 0.2s;
+    }
+    .form-group input:focus,
+    .form-group select:focus { border-color: var(--mint); }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+    .form-submit {
+      width: 100%; padding: 14px;
+      background: var(--coral); color: var(--white);
+      border: none; border-radius: 8px;
+      font-family: 'Inter', sans-serif; font-size: 0.95rem; font-weight: 600;
+      cursor: pointer; margin-top: 8px;
+      transition: transform 0.15s, box-shadow 0.15s;
+      letter-spacing: 0.02em;
+    }
+    .form-submit:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 8px 24px rgba(255, 107, 74, 0.4);
+    }
+    .form-legal {
+      text-align: center; font-size: 0.72rem;
+      color: var(--muted); margin-top: 12px; line-height: 1.5;
+    }
+    .form-badge {
+      display: flex; align-items: center; justify-content: center;
+      gap: 8px; margin-top: 16px; padding-top: 16px;
+      border-top: 1px solid var(--warm);
+      font-size: 0.75rem; color: var(--muted);
+    }
+    .form-badge svg { flex-shrink: 0; }
+
+    /* ── HOW IT WORKS ── */
+    .section { padding: 96px 48px; }
+    .section-label {
+      display: inline-block;
+      font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--mint);
+      margin-bottom: 12px;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 3vw, 2.6rem);
+      font-weight: 700; line-height: 1.2;
+      color: var(--navy); max-width: 500px;
+      margin-bottom: 60px;
+    }
+
+    .steps {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 40px; position: relative;
+    }
+    .steps::before {
+      content: '';
+      position: absolute; top: 28px; left: 14%; right: 14%;
+      height: 1px; background: var(--warm);
+    }
+    .step { text-align: left; }
+    .step-icon {
+      width: 56px; height: 56px; border-radius: 14px;
+      background: var(--navy); display: flex; align-items: center;
+      justify-content: center; margin-bottom: 20px;
+      position: relative;
+    }
+    .step-icon svg { width: 26px; height: 26px; color: var(--mint); }
+    .step-num {
+      position: absolute; top: -8px; right: -8px;
+      width: 20px; height: 20px; border-radius: 50%;
+      background: var(--mint); color: var(--navy);
+      font-size: 0.65rem; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .step h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem; margin-bottom: 8px; color: var(--navy);
+    }
+    .step p { font-size: 0.88rem; line-height: 1.65; color: var(--muted); }
+
+    /* ── SERVICES ── */
+    .services-section {
+      background: var(--navy); padding: 96px 48px;
+    }
+    .services-section .section-title { color: var(--white); }
+    .services-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+    }
+    .service-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 12px; padding: 32px 28px;
+      transition: border-color 0.2s, background 0.2s;
+      cursor: default;
+    }
+    .service-card:hover {
+      border-color: rgba(62,201,167,0.4);
+      background: rgba(62,201,167,0.05);
+    }
+    .service-icon {
+      font-size: 2.2rem; margin-bottom: 16px; display: block;
+    }
+    .service-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem; color: var(--white); margin-bottom: 10px;
+    }
+    .service-card p {
+      font-size: 0.85rem; color: rgba(255,255,255,0.5); line-height: 1.65;
+    }
+    .service-price {
+      margin-top: 18px; font-size: 0.78rem;
+      color: var(--mint); font-weight: 600; letter-spacing: 0.04em;
+    }
+
+    /* ── TESTIMONIALS ── */
+    .testimonials { padding: 96px 48px; background: var(--warm); }
+    .testi-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+    }
+    .testi-card {
+      background: var(--white); border-radius: 12px;
+      padding: 28px 24px;
+    }
+    .testi-stars { color: #FFD166; font-size: 0.85rem; margin-bottom: 12px; }
+    .testi-text {
+      font-size: 0.88rem; line-height: 1.7; color: var(--navy);
+      font-style: italic; margin-bottom: 18px;
+    }
+    .testi-author {
+      display: flex; align-items: center; gap: 10px;
+    }
+    .testi-avatar {
+      width: 36px; height: 36px; border-radius: 50%;
+      background: var(--navy); display: flex; align-items: center;
+      justify-content: center; color: var(--mint);
+      font-weight: 700; font-size: 0.85rem; flex-shrink: 0;
+    }
+    .testi-name { font-size: 0.82rem; font-weight: 600; color: var(--navy); }
+    .testi-loc { font-size: 0.75rem; color: var(--muted); }
+
+    /* ── CTA BANNER ── */
+    .cta-banner {
+      padding: 80px 48px; text-align: center;
+      background: linear-gradient(135deg, var(--mint) 0%, #2aaa8a 100%);
+    }
+    .cta-banner h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 3vw, 2.6rem);
+      color: var(--navy); font-weight: 700; margin-bottom: 12px;
+    }
+    .cta-banner p {
+      font-size: 1rem; color: rgba(10,22,40,0.7); margin-bottom: 32px;
+    }
+    .cta-btn {
+      display: inline-block; padding: 16px 48px;
+      background: var(--navy); color: var(--white);
+      border-radius: 6px; font-weight: 600; font-size: 0.95rem;
+      text-decoration: none; letter-spacing: 0.03em;
+      transition: opacity 0.2s;
+    }
+    .cta-btn:hover { opacity: 0.85; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--navy); padding: 48px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .footer-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem; color: var(--white); font-weight: 700;
+    }
+    .footer-logo span { color: var(--mint); }
+    footer p { font-size: 0.78rem; color: rgba(255,255,255,0.35); }
+    .footer-links { display: flex; gap: 24px; }
+    .footer-links a {
+      font-size: 0.78rem; color: rgba(255,255,255,0.4);
+      text-decoration: none; transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--mint); }
+
+    /* ── SUCCESS STATE ── */
+    .form-success {
+      display: none; text-align: center; padding: 20px 0;
+    }
+    .form-success .check {
+      width: 60px; height: 60px; border-radius: 50%;
+      background: rgba(62,201,167,0.12); display: flex;
+      align-items: center; justify-content: center;
+      margin: 0 auto 16px;
+      font-size: 1.8rem;
+    }
+    .form-success h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem; color: var(--navy); margin-bottom: 8px;
+    }
+    .form-success p {
+      font-size: 0.85rem; color: var(--muted); line-height: 1.6;
+    }
+
+    @media (max-width: 900px) {
+      nav { padding: 16px 24px; }
+      .nav-links { display: none; }
+      .hero { grid-template-columns: 1fr; padding: 100px 24px 40px; }
+      .form-card { margin-top: 40px; }
+      .steps, .services-grid, .testi-grid { grid-template-columns: 1fr; }
+      .steps::before { display: none; }
+      .section, .services-section, .testimonials { padding: 60px 24px; }
+      footer { flex-direction: column; gap: 20px; text-align: center; }
+      .footer-links { flex-wrap: wrap; justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Service<span>Ménage</span></div>
+  <div class="nav-links">
+    <a href="#how">Fonctionnement</a>
+    <a href="#services">Prestations</a>
+    <a href="#avis">Avis clients</a>
+  </div>
+  <button class="nav-cta" onclick="document.getElementById('prenom').focus()">Devis gratuit</button>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg-art">
+    <div class="sweep-line"></div>
+    <div class="sweep-line"></div>
+    <div class="sweep-line"></div>
+    <div class="sweep-line"></div>
+    <div class="sweep-line"></div>
+  </div>
+
+  <div class="hero-content">
+    <div class="hero-eyebrow">Service disponible partout en France</div>
+
+    <h1 class="hero-title">
+      Un intérieur <em>impeccable</em>,<br>
+      sans lever le petit doigt.
+    </h1>
+
+    <p class="hero-sub">
+      Des professionnels du ménage sélectionnés et assurés interviennent chez vous
+      selon votre planning. Ponctuellement ou en abonnement régulier.
+    </p>
+
+    <div class="hero-stats">
+      <div class="stat-item">
+        <div class="stat-num">12 000+</div>
+        <div class="stat-label">Clients satisfaits</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">4,9 / 5</div>
+        <div class="stat-label">Note moyenne</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">48h</div>
+        <div class="stat-label">Premier RDV</div>
+      </div>
+    </div>
+
+    <div class="hero-trust">
+      <span class="stars">★★★★★</span>
+      <span>Noté 4,9/5 par nos clients &nbsp;·&nbsp; Prestataires assurés &nbsp;·&nbsp; Sans engagement</span>
+    </div>
+  </div>
+
+  <!-- LEAD FORM -->
+  <div class="form-card">
+    <div class="form-title">Obtenez votre devis</div>
+    <div class="form-sub">Gratuit, immédiat, sans engagement</div>
+
+    <div id="form-fields">
+      <div class="form-row">
+        <div class="form-group">
+          <label>Prénom</label>
+          <input type="text" id="prenom" placeholder="Marie" />
+        </div>
+        <div class="form-group">
+          <label>Nom</label>
+          <input type="text" placeholder="Dupont" />
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Téléphone</label>
+        <input type="tel" placeholder="06 12 34 56 78" />
+      </div>
+
+      <div class="form-group">
+        <label>Code postal</label>
+        <input type="text" placeholder="75001" maxlength="5" />
+      </div>
+
+      <div class="form-group">
+        <label>Type de logement</label>
+        <select>
+          <option value="">Sélectionnez…</option>
+          <option>Appartement</option>
+          <option>Maison</option>
+          <option>Bureau / local</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Fréquence souhaitée</label>
+        <select>
+          <option value="">Sélectionnez…</option>
+          <option>Ponctuel (une fois)</option>
+          <option>Hebdomadaire</option>
+          <option>Toutes les 2 semaines</option>
+          <option>Mensuel</option>
+        </select>
+      </div>
+
+      <button class="form-submit" onclick="submitForm()">
+        Recevoir mon devis gratuit →
+      </button>
+
+      <p class="form-legal">
+        En cliquant, j'accepte d'être recontacté(e) par ServiceMénage.<br>
+        Mes données ne seront jamais revendues.
+      </p>
+
+      <div class="form-badge">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+        </svg>
+        Paiement sécurisé &nbsp;·&nbsp; Sans engagement &nbsp;·&nbsp; RGPD
+      </div>
+    </div>
+
+    <div class="form-success" id="form-success">
+      <div class="check">✅</div>
+      <h3>Demande reçue !</h3>
+      <p>Un conseiller vous contacte sous <strong>2 heures</strong> pour finaliser votre devis personnalisé.</p>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="section" id="how">
+  <div class="section-label">Fonctionnement</div>
+  <h2 class="section-title">Un service simple,<br>du premier contact au ménage.</h2>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-icon">
+        <span class="step-num">1</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <path d="M9 12h6m-6 4h6m2 5H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5.586a1 1 0 0 1 .707.293l5.414 5.414a1 1 0 0 1 .293.707V19a2 2 0 0 1-2 2z"/>
+        </svg>
+      </div>
+      <h3>Devis en ligne</h3>
+      <p>Remplissez le formulaire en 60 secondes. Un conseiller vous rappelle sous 2h avec une offre sur mesure.</p>
+    </div>
+
+    <div class="step">
+      <div class="step-icon">
+        <span class="step-num">2</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/>
+          <path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+        </svg>
+      </div>
+      <h3>Un pro sélectionné</h3>
+      <p>Nous vous attribuons un(e) aide-ménager(ère) vérifié(e), assuré(e) et noté par nos clients.</p>
+    </div>
+
+    <div class="step">
+      <div class="step-icon">
+        <span class="step-num">3</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+          <polyline points="9 22 9 12 15 12 15 22"/>
+        </svg>
+      </div>
+      <h3>Votre intérieur brille</h3>
+      <p>L'intervenant arrive à l'heure, avec son matériel. Vous n'avez qu'à profiter du résultat.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services-section" id="services">
+  <div class="section-label" style="color: rgba(62,201,167,0.8)">Nos prestations</div>
+  <h2 class="section-title">Ce que nous faisons<br>pour vous.</h2>
+
+  <div class="services-grid">
+    <div class="service-card">
+      <span class="service-icon">🧹</span>
+      <h3>Ménage régulier</h3>
+      <p>Entretien hebdomadaire ou bimensuel de votre logement : aspiration, lavage des sols, poussière, sanitaires.</p>
+      <div class="service-price">À partir de 18 €/h</div>
+    </div>
+
+    <div class="service-card">
+      <span class="service-icon">✨</span>
+      <h3>Grand ménage</h3>
+      <p>Nettoyage en profondeur — déménagement, fin de bail, remise en état après travaux ou réception.</p>
+      <div class="service-price">Devis personnalisé</div>
+    </div>
+
+    <div class="service-card">
+      <span class="service-icon">🍽️</span>
+      <h3>Entretien + cuisine</h3>
+      <p>Ménage classique complété par le nettoyage des appareils électroménagers et de la cuisine en détail.</p>
+      <div class="service-price">À partir de 22 €/h</div>
+    </div>
+
+    <div class="service-card">
+      <span class="service-icon">🪟</span>
+      <h3>Vitres & surfaces</h3>
+      <p>Nettoyage des vitres intérieures et extérieures accessibles, miroirs et verrières pour un rendu parfait.</p>
+      <div class="service-price">À partir de 15 €/h</div>
+    </div>
+
+    <div class="service-card">
+      <span class="service-icon">👶</span>
+      <h3>Repassage</h3>
+      <p>Service de repassage et pliage à domicile, à la demi-journée ou à l'heure, selon vos besoins.</p>
+      <div class="service-price">À partir de 15 €/h</div>
+    </div>
+
+    <div class="service-card">
+      <span class="service-icon">🏢</span>
+      <h3>Locaux professionnels</h3>
+      <p>Entretien régulier de bureaux, commerces et espaces de travail — en horaires décalés si souhaité.</p>
+      <div class="service-price">Sur devis</div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials" id="avis">
+  <div class="section-label">Avis clients vérifiés</div>
+  <h2 class="section-title">Ce qu'ils en pensent.</h2>
+
+  <div class="testi-grid">
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">« J'avais peur de ne pas trouver quelqu'un de confiance. Isabelle intervient chez moi depuis 6 mois, c'est irréprochable. Je ne ferai plus jamais le ménage moi-même. »</p>
+      <div class="testi-author">
+        <div class="testi-avatar">C</div>
+        <div>
+          <div class="testi-name">Claire M.</div>
+          <div class="testi-loc">Lyon (69)</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">« Rappelé en moins d'une heure, intervenante disponible dès le lendemain. Le service est très pro, le prix honnête. Je recommande sans hésiter. »</p>
+      <div class="testi-author">
+        <div class="testi-avatar">T</div>
+        <div>
+          <div class="testi-name">Thomas R.</div>
+          <div class="testi-loc">Paris (75)</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">« Grand ménage pour la remise de notre appartement en location. Dépôt de garantie récupéré intégralement ! Travail vraiment sérieux et minutieux. »</p>
+      <div class="testi-author">
+        <div class="testi-avatar">A</div>
+        <div>
+          <div class="testi-name">Amandine L.</div>
+          <div class="testi-loc">Bordeaux (33)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BANNER -->
+<section class="cta-banner">
+  <h2>Prêt(e) pour un intérieur impeccable ?</h2>
+  <p>Devis gratuit en 60 secondes. Premier ménage sous 48h.</p>
+  <a href="#" class="cta-btn" onclick="document.getElementById('prenom').scrollIntoView({behavior:'smooth'}); return false;">
+    Démarrer maintenant →
+  </a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <div class="footer-logo">Service<span>Ménage</span></div>
+    <p style="margin-top:8px">Une marque Adomos · servicemenage.adomos.com</p>
+  </div>
+  <div class="footer-links">
+    <a href="#">Mentions légales</a>
+    <a href="#">Politique de confidentialité</a>
+    <a href="#">RGPD</a>
+    <a href="#">Contact</a>
+  </div>
+  <p>© 2024 Adomos. Tous droits réservés.</p>
+</footer>
+
+<script>
+  function submitForm() {
+    // Basic validation
+    const prenom = document.getElementById('prenom').value.trim();
+    if (!prenom) {
+      document.getElementById('prenom').style.borderColor = 'var(--coral)';
+      document.getElementById('prenom').focus();
+      return;
+    }
+
+    // Simulate submission
+    document.getElementById('form-fields').style.display = 'none';
+    document.getElementById('form-success').style.display = 'block';
+
+    // Here you would post to your lead API:
+    // fetch('https://api.adomos.com/leads', { method: 'POST', body: JSON.stringify({ prenom, ... }) })
+  }
+
+  // Animate stats on scroll
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.opacity = '1';
+        e.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll('.step, .service-card, .testi-card').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(20px)';
+    el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+    observer.observe(el);
+  });
+</script>
+
+</body>
+</html>
