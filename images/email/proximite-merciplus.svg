@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?><svg xmlns="http://www.w3.org/2000/svg" width="90" height="90" viewBox="0 0 90 90">
+  <g id="proximite" transform="translate(-978 -1014)">
+    <rect id="Rectangle_1633" data-name="Rectangle 1633" width="90" height="90" rx="10" transform="translate(978 1014)" fill="transparent"/>
+    <g id="Maps-Navigation_Trip_trip-pin-multiple" data-name="Maps-Navigation / Trip / trip-pin-multiple" transform="translate(676.25 336.152)">
+      <g id="Group_47" data-name="Group 47" transform="translate(321.75 701.102)">
+        <g id="Regular_90" data-name="Regular 90" transform="translate(-251.75 -1189.001)">
+          <g id="Groupe_2516" data-name="Groupe 2516" transform="translate(244.797 1193.748)">
+            <path id="Tracé_1536" data-name="Tracé 1536" d="M102.687,0a13.6,13.6,0,0,1,13.5,13.688c0,8.567-8,20.046-12.621,25.887a1.122,1.122,0,0,1-1.772-.018c-4.616-5.943-12.607-17.2-12.607-25.869A13.6,13.6,0,0,1,102.687,0" transform="translate(-80.233 -0.004)" fill="#fff"/>
+            <path id="Tracé_1534" data-name="Tracé 1534" d="M102.687,0a13.6,13.6,0,0,1,13.5,13.688c0,8.567-8,20.046-12.621,25.887a1.122,1.122,0,0,1-1.772-.018c-4.616-5.943-12.607-17.2-12.607-25.869A13.6,13.6,0,0,1,102.687,0m0,2.293A11.317,11.317,0,0,0,91.449,13.691c0,7.477,7.093,17.922,11.238,23.325,4.145-5.4,11.238-15.847,11.238-23.325A11.317,11.317,0,0,0,102.687,2.3" transform="translate(-80.233 -0.004)" fill="#c13332"/>
+            <path id="Tracé_1538" data-name="Tracé 1538" d="M5.733,5.141a1.8,1.8,0,0,0,.231-1.015,14.889,14.889,0,0,1,.209-1.759A4.207,4.207,0,0,1,6.823.722,1.79,1.79,0,0,1,8.424,0,1.827,1.827,0,0,1,9.769.632q-.046,1.082-.091,2.142T9.586,4.916a9.262,9.262,0,0,0,1.385.09,5.638,5.638,0,0,1,1.521.2,2.7,2.7,0,0,1,1.2.677,1.92,1.92,0,0,1,.477,1.42q0,.542-.78.632a10.531,10.531,0,0,1-1.72.045,13.316,13.316,0,0,0-1.743.022q-.8.068-.895.609-.092.632-.207,1.443a8.084,8.084,0,0,1-.367,1.534,3.7,3.7,0,0,1-.711,1.24,1.624,1.624,0,0,1-1.284.519,2.2,2.2,0,0,1-1.055-.271.942.942,0,0,1-.5-.9,8.893,8.893,0,0,1,.161-1.691,8.735,8.735,0,0,0,.16-1.646V8.389a11.126,11.126,0,0,1-1.6.248,5.117,5.117,0,0,1-1.537-.09A3.306,3.306,0,0,1,.8,7.96,2.288,2.288,0,0,1,0,6.63q.138-.315.894-.564a14.03,14.03,0,0,1,1.7-.428q.939-.18,1.835-.293t1.307-.2" transform="translate(15.154 6.418)" fill="#1a4184"/>
+          </g>
+          <path id="Oval_27" data-name="Oval 27" d="M265.611,1208.282c4.409,0,6.857-5.389,6.857-9.8s6.568-16.164,2.159-16.164-18.3,9-18.6,15.615A9.783,9.783,0,0,0,265.611,1208.282Z" transform="translate(10.258 24.259)" fill="#ebf7fc"/>
+          <g id="house">
+            <path id="Shape_646" data-name="Shape 646" d="M263.25,1204.23v7.49a3.2,3.2,0,0,0,3.194,3.194h12.775a3.2,3.2,0,0,0,3.194-3.194v-7.49" transform="translate(11.951 19.832)" fill="#ebf7fc" stroke="#2b427c" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"/>
+            <path id="Shape_647" data-name="Shape 647" d="M292.193,1210.518l-13.839-12.449a3.192,3.192,0,0,0-4.271,0l-13.839,12.449" transform="translate(8.557 11.917)" fill="#ebf7fc" stroke="#2b427c" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"/>
+            <path id="Shape_648" data-name="Shape 648" d="M273.75,1206.8V1198" transform="translate(23.807 12.761)" fill="none" stroke="#2b427c" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"/>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>
